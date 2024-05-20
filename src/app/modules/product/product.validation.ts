@@ -20,10 +20,14 @@ const ProductZodSchema = z.object({
   description: z.string().min(1, "Product description is required."),
   price: z.number().positive("Price must be a positive number."),
   category: z.string().min(1, "Category is required."),
-  tags: z.array(z.string().min(1, "Tags cannot be empty.")).nonempty("At least one tag is required."),
-  variants: z.array(VariantZodSchema).nonempty("At least one variant is required."),
+  tags: z
+    .array(z.string().min(1, "Tags cannot be empty."))
+    .nonempty("At least one tag is required."),
+  variants: z
+    .array(VariantZodSchema)
+    .nonempty("At least one variant is required."),
   inventory: InventoryZodSchema,
 });
 
 // Export the Zod schemas
-export default  ProductZodSchema;
+export default ProductZodSchema;
