@@ -17,16 +17,22 @@ const getSingleProductFromDB = async (id: string) => {
 };
 
 const updateProductInDB = async (productId: string, productData: TProduct) => {
-  const product = await ProductModel.findByIdAndUpdate(productId, productData);
+  const product = await ProductModel.findByIdAndUpdate(productId, productData, { new: true });
   if (!product) {
     throw new Error("Product not found");
   }
   return product;
 };
 
+const deleteProductFromDB = async (id: string) => {
+    const result = await ProductModel.updateOne({ _id: id },{isDeleted: true});
+    return result;
+  };
+
 export const ProductServices = {
   createProductIntoDB,
   getAllProductFromDB,
   getSingleProductFromDB,
   updateProductInDB,
+  deleteProductFromDB
 };
