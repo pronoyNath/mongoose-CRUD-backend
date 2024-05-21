@@ -17,7 +17,7 @@ const createProduct = async (req: Request, res: Response) => {
     // Send response
     res.status(200).json({
       success: true,
-      message: "Product is created successfully",
+      message: "Product created successfully!",
       data: result,
     });
   } catch (err) {
@@ -40,8 +40,8 @@ const getAllProducts = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: isQueryEmpty
-        ? "All products are retrieved successfully"
-        : `Products matching the '${Object.values(query)}' search criteria are retrieved successfully`,
+        ? "Products fetched successfully!"
+        : `Products matching search term '${Object.values(query)}' fetched successfully!`,
       data: result,
     });
   } catch (err) {
@@ -81,12 +81,12 @@ const updateProduct = async (req: Request, res: Response) => {
 
     const result = await ProductServices.updateProductInDB(
       productId,
-      zodParsedData
+      zodParsedData,
     );
 
     res.status(200).json({
       succuess: true,
-      message: "Product updated sucessfully",
+      message: "Product updated successfully!",
       data: result,
     });
   } catch (err: any) {
@@ -106,7 +106,7 @@ const deleteProduct = async (req: Request, res: Response) => {
 
     res.status(200).json({
       succuess: true,
-      message: "Product is deleted sucessfully",
+      message: "Product deleted successfully!",
       data: result,
     });
   } catch (err) {
