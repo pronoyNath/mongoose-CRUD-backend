@@ -1,4 +1,4 @@
-import { TProduct } from "./product.interface";
+import { QueryParams, TProduct } from "./product.interface";
 import { ProductModel } from "./product.model";
 
 const createProductIntoDB = async (product: TProduct) => {
@@ -6,9 +6,30 @@ const createProductIntoDB = async (product: TProduct) => {
   return result;
 };
 
-const getAllProductFromDB = async () => {
-  const result = await ProductModel.find();
-  return result;
+const getAllProductFromDB = async (query: QueryParams) => {
+  try {
+    // Build the search criteria based on the query parameters
+    const searchCriteria: { [key: string]: any } = {};
+
+    if (query.name) {
+      searchCriteria.name = { $regex: query.name, $options: "i" };
+    }
+
+    if (query.category) {
+      searchCriteria.category = { $regex: query.category, $options: "i" };
+    }
+
+    if (query.description) {
+      searchCriteria.description = { $regex: query.description, $options: "i" };
+    }
+
+    // Fetch products from the database with the search criteria
+    const products = await ProductModel.find(searchCriteria);
+
+    return products;
+  } catch (error: any) {
+    throw new Error(error);
+  }
 };
 
 const getSingleProductFromDB = async (id: string) => {

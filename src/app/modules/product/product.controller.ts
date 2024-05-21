@@ -31,11 +31,17 @@ const createProduct = async (req: Request, res: Response) => {
 
 const getAllProducts = async (req: Request, res: Response) => {
   try {
-    const result = await ProductServices.getAllProductFromDB();
+    const { query } = req;
+
+    const result = await ProductServices.getAllProductFromDB(query);
+
+    const isQueryEmpty = Object.keys(query).length === 0;
 
     res.status(200).json({
-      succuess: true,
-      message: "Products are retrieve sucessfully",
+      success: true,
+      message: isQueryEmpty
+        ? "All products are retrieved successfully"
+        : `Products matching the '${Object.values(query)}' search criteria are retrieved successfully`,
       data: result,
     });
   } catch (err) {
@@ -83,7 +89,7 @@ const updateProduct = async (req: Request, res: Response) => {
       message: "Product updated sucessfully",
       data: result,
     });
-  } catch (err : any) {
+  } catch (err: any) {
     res.status(500).json({
       succuess: false,
       message: "Something went wrong",
@@ -93,29 +99,29 @@ const updateProduct = async (req: Request, res: Response) => {
 };
 
 const deleteProduct = async (req: Request, res: Response) => {
-    try {
-      const { productId } = req.params;
+  try {
+    const { productId } = req.params;
 
-      const result = await ProductServices.deleteProductFromDB(productId);
-  
-      res.status(200).json({
-        succuess: true,
-        message: 'Product is deleted sucessfully',
-        data: result,
-      });
-    } catch (err) {
-      res.status(500).json({
-        succuess: false,
-        message: 'Something went wrong',
-        error: err,
-      });
-    }
-  };
+    const result = await ProductServices.deleteProductFromDB(productId);
+
+    res.status(200).json({
+      succuess: true,
+      message: "Product is deleted sucessfully",
+      data: result,
+    });
+  } catch (err) {
+    res.status(500).json({
+      succuess: false,
+      message: "Something went wrong",
+      error: err,
+    });
+  }
+};
 
 export const ProductControllers = {
   createProduct,
   getAllProducts,
   getSingleProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
 };

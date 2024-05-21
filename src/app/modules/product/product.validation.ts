@@ -27,7 +27,7 @@ const ProductZodSchema = z.object({
     .array(VariantZodSchema)
     .nonempty("At least one variant is required."),
   inventory: InventoryZodSchema,
-  isDeleted: z.boolean().optional()
+  isDeleted: z.boolean().optional(),
 });
 
 // Export the Zod schemas

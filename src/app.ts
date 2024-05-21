@@ -7,14 +7,11 @@ const app: Application = express();
 app.use(express.json());
 app.use(cors());
 
+// applications routes
+app.use("/api/products", ProductRoutes);
+app.use("/api/products", ProductRoutes);
 
-// applications routes 
-app.use('/api/products',ProductRoutes)
-app.use('/api/products',ProductRoutes)
-
-
-
-// testing server 
+// testing server
 app.get("/", (req: Request, res: Response) => {
   const a = "hello Ami Achi...";
   res.send(a);
