@@ -14,9 +14,11 @@ Before you begin, ensure you have met the following requirements:
 
 ```sh
 git clone https://github.com/pronoyNath/mongoose-CRUD-backend.git
+ 
+ ```
 
 2. After clone open your project and run command:
-
+```sh
 npm install
-
+```
 Done Enjoy The Project
