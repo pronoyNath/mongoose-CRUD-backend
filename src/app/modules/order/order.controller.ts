@@ -39,6 +39,29 @@ const createOrder = async (req: Request, res: Response) => {
   }
 };
 
+const getAllOrders = async (req: Request, res: Response) => {
+  try {
+    const email = req.query.email as string | undefined;
+    const result = await OrderServices.getAllOrdersFromDB(email);
+
+    res.status(200).json({
+      success: true,
+      message:
+        result.length != 0
+          ? "Orders are retrieved successfully"
+          : `No order created from this '${email}' email`,
+      data: result,
+    });
+  } catch (err) {
+    res.status(500).json({
+      succuess: false,
+      message: "Something went wrong",
+      error: err,
+    });
+  }
+};
+
 export const OrderController = {
   createOrder,
+  getAllOrders,
 };
