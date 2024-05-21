@@ -13,7 +13,7 @@ Before you begin, ensure you have met the following requirements:
 1. Clone the repository to your local machine:
 
 ```sh
-git clone https://github.com/your-username/assignment-02.git
+git clone https://github.com/pronoyNath/mongoose-CRUD-backend.git
 
 2. After clone open your project and run command:
 
